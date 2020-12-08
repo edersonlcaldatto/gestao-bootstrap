@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestão de Projetos</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="home.html">Gestão de Projetos</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="clientes.html">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Responsáveis</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="projetos.html">Projetos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="atividades.html">Atividades</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="main" class="container-fluid" style="margin-top: 50px">
+        <div id="top" class="row">
+            <div class="col-sm-3">
+                <h2>Responsáveis</h2>
+            </div>
+            <div class="col-sm-6">
+
+                <div class="input-group h2">
+                    <input name="data[search]" class="form-control" id="search" type="text"
+                        placeholder="Pesquisar Itens">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary pull-right h2" data-toggle="modal">
+                        </button>
+                    </span>
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-primary pull-right h2" data-toggle="modal"
+                    data-target="#cadastrarResponsavel">Novo Responsável</button>
+            </div>
+        </div>
+
+        <hr />
+
+        <div id="list" class="row">
+            <div class="table-responsive col-md-12">
+                <table class="table table-striped" cellspacing="0" cellpadding="0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Funcao</th>
+                            <th class="actions">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="responsaveisTableBody">
+                        <a></a>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cadastrarResponsavel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Dados dos Responsáveis</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="responsavelNome" class="col-form-label">Nome:</label>
+                            <input type="text" class="form-control" id="responsavelNome" maxlength="60">
+                        </div>
+                        <div class="form-group">
+                            <label for="responsavelFuncao" class="col-form-label">Função:</label>
+                            <input type="text" list="responsavelFuncaoList" class="form-control" id="responsavelFuncao">
+                            <datalist id="responsavelFuncaoList">
+                                <option value="PROGRAMADOR"></option>
+                                <option value="ANALISTA"></option>
+                                <option value="TESTE"></option>
+                            </datalist>
+                        </div>
+                        <input type="hidden" id="idResponsavel">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick="ResponsavelController.save()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../controller/ResponsavelController.js"></script>
+
+</body>
+
+</html>
