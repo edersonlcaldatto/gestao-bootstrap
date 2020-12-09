@@ -91,11 +91,18 @@ var ResponsavelController = new function () {
 		let idResponsavel = event.target.parentNode.parentNode.querySelector('.idResponsavel').innerText;
 
 		$("#idResponsavel").val(idResponsavel);
-		
-		$.get(baseUrl + '/' + idResponsavel, function (data) {
-			$('#cadastrarResponsavel').modal('show');
-			ResponsavelController.setDadosResponsavelModal(data);
-		});
+
+		$.get({
+			type: 'GET',
+			url: baseUrl + '/' + idResponsavel,
+			headers: getToken(),
+			success: (data) => {
+				$('#cadastrarResponsavel').modal('show');
+				ResponsavelController.setDadosResponsavelModal(data);
+			}
+		});	
+
+				
 	}
 
 	this.setDadosResponsavelModal = function (responsavel) {

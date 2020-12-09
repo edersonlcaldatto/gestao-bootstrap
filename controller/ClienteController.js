@@ -92,10 +92,15 @@ var ClienteController = new function () {
 
 		$("#idCliente").val(idCliente);
 		
-		$.get(baseUrl + '/' + idCliente, function (data) {
-			$('#cadastrarCliente').modal('show');
-			ClienteController.setDadosClienteModal(data);
-		});
+		$.get({
+			type: 'GET',
+			url: baseUrl + '/' + idCliente,
+			headers: getToken(),
+			success: (data) => {
+				$('#cadastrarCliente').modal('show');
+				ClienteController.setDadosClienteModal(data);			
+			}
+		});			
 	}
 
 	this.setDadosClienteModal = function (cliente) {

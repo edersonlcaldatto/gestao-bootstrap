@@ -66,6 +66,8 @@ var AtividadeController = new function () {
 
 	this.update = function (idAtividade) {
 		var atividade = this.getDadosAtividadeModal();
+		console.log("Update "+ idAtividade);
+		console.log(atividade);
 
 		$.ajax({
 			url: baseUrl + '/' + idAtividade,
@@ -90,27 +92,39 @@ var AtividadeController = new function () {
 	}
 
 	this.edit = function (event) {
-		let idAtividade = event.target.parentNode.parentNode.querySelector('.idAtividade').innerText;
+		getProjetosJson(loadProjetos);
+		getResponsaveisJson(loadResponsaveis);
 
-		$("#idAtividade").val(idAtividade);
+		let idAtividade = event.target.parentNode.parentNode.querySelector('.idAtividade').innerText;
 		
-		$.get(baseUrl + '/' + idAtividade, function (data) {
-			$('#cadastrarAtividade').modal('show');
-			AtividadeController.setDadosAtividadeModal(data);
-		});
+		$("#idAtividade").val(idAtividade);		
+		
+		$.get({
+			type: 'GET',
+			url: baseUrl + '/' + idAtividade,
+			headers: getToken(),
+			success: (data) => {
+				$('#cadastrarAtividade').modal('show');
+				AtividadeController.setDadosAtividadeModal(data);				
+			}, 
+			error: (xhr) => {
+				alert("Erro ao buscar as Atividades: " + xhr.status + " - " + xhr.statusText)				
+			},
+		});			
 	}
 
 	this.setDadosAtividadeModal = function (atividade) {
 		$('#atividadeProjeto').val(atividade.projeto.nome);
-		$('#atividadeCliente').val(atividade.cliente.nome);
 		$('#atividadeTarefa').val(atividade.task);
-		$('#atividadeTarefa').val(atividade.task);
+		$('#atividadeResponsavel').val(atividade.responsavel.nome);
+		$('#atividadeStatus').val(atividade.status);
 	}
 
 	this.limparDadosAtividadeModal = function () {
-		$('#atividadeNome').val("");
-		$('#atividadeCliente').val("");
-		$('#atividadeDescricao').val("");
+		$('#atividadeProjeto').val("");
+		$('#atividadeTarefa').val("");
+		$('#atividadeResponsavel').val("");
+		$('#atividadeStatus').val("");
 	}
 
 	this.getDadosAtividadeModal = function () {
@@ -166,9 +180,8 @@ var AtividadeController = new function () {
 		let atividadeTr = document.createElement("tr");
 		atividadeTr.classList.add("atividade");
 		atividadeTr.appendChild(montaTd(atividade.idatividade, "idAtividade"));
-		atividadeTr.appendChild(montaTd(atividade.nome, "nome"));
 		atividadeTr.appendChild(montaTd(atividade.projeto.nome, "projeto"));
-		atividadeTr.appendChild(montaTd(atividade.descricao, "descricao"));
+		atividadeTr.appendChild(montaTd(atividade.task, "task"));
 		atividadeTr.appendChild(montaTd(atividade.responsavel.nome, "responsavel"));
 		atividadeTr.appendChild(montaTd(atividade.status, "status"));
 

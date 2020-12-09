@@ -64,7 +64,7 @@ var ProjetoController = new function () {
 
 	this.update = function (idProjeto) {
 		var projeto = this.getDadosProjetoModal();
-
+		console.log(JSON.stringify(projeto));
 		$.ajax({
 			url: baseUrl + '/' + idProjeto,
 			method: 'PUT',
@@ -88,20 +88,26 @@ var ProjetoController = new function () {
 	}
 
 	this.edit = function (event) {
+		getClientesJson(loadClientes);
 		let idProjeto = event.target.parentNode.parentNode.querySelector('.idProjeto').innerText;
 
 		$("#idProjeto").val(idProjeto);
-		
-		$.get(baseUrl + '/' + idProjeto, function (data) {
-			$('#cadastrarProjeto').modal('show');
-			ProjetoController.setDadosProjetoModal(data);
-		});
+
+		$.get({
+			type: 'GET',
+			url: baseUrl + '/' + idProjeto,
+			headers: getToken(),
+			success: (data) => {
+				$('#cadastrarProjeto').modal('show');
+				ProjetoController.setDadosProjetoModal(data);			
+			}
+		});			
 	}
 
 	this.setDadosProjetoModal = function (projeto) {
 		$('#projetoNome').val(projeto.nome);
 		$('#projetoCliente').val(projeto.cliente.nome);
-		$('#projetoDescricao').val(projeto.projetoDescricao);		
+		$('#projetoDescricao').val(projeto.descricao);		
 	}
 
 	this.limparDadosProjetoModal = function () {
