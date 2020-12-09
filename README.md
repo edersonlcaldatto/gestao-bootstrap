@@ -19,3 +19,7 @@ Projeto proposto pelo CTO Rafael Scheidt
 ## Hospedagem
 
 - NetFly https://www.netlify.com/
+
+## Usuário para acesso padrão
+user : admin
+password: admin
