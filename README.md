@@ -19,7 +19,8 @@ Projeto proposto pelo CTO Rafael Scheidt
 ## Hospedagem
 
 - NetFly https://www.netlify.com/
+- https://gestao-animati.netlify.app/
 
 ## Usuário para acesso padrão
-user : admin
-password: admin
+- user : admin
+- password: admin
